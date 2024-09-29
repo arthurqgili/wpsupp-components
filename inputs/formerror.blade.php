@@ -1,4 +1,4 @@
-<x-typography.label class="text-red-1" size="md">
+<x-shared.typography.label class="text-red-1" size="md">
 
     @if ($errors->any())
         <ul>
@@ -9,4 +9,4 @@
     @endif
 
     {{ $slot }}
-</x-typography.label>
+</x-shared.typography.label>

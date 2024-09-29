@@ -2,7 +2,7 @@
 
 <style>
     .ql-editor {
-        box-sizing: initial;
+        box-shared.sizing: initial;
         line-height: initial;
         height: initial;
         outline: initial;
@@ -62,7 +62,7 @@
         content: 'format_indent_decrease';
     }
 </style>
-<div x-data="editorSetup()" x-init="initEditor"
+<div x-data="editorSetup()" x-shared.init="initEditor"
     class="overflow-hidden border border-white rounded-sm editor focus-within:border-blue-1">
     <div id="editor-toolbar" class="!border-0 p-xxs bg-black-3">
         @foreach ($options as $option)

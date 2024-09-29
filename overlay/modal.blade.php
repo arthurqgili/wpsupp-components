@@ -7,12 +7,12 @@
     'totalSteps' => 1,
 ])
 
-<template x-if="{{ $modalname }}">
-    <div x-data="{ currentStep: {{ $currentStep }}, totalSteps: {{ $totalSteps }}, nextStep() { this.currentStep = this.currentStep >= this.totalSteps ? this.totalSteps : this.currentStep + 1; }, previousStep() { this.currentStep = this.currentStep <= 1 ? 1 : this.currentStep - 1; } }" x-show="{{ $modalname }}"
-        class="fixed top-0 left-0 flex items-center justify-center w-full h-full " x-cloak>
+<template x-shared.if="{{ $modalname }}">
+    <div x-data="{ currentStep: {{ $currentStep }}, totalSteps: {{ $totalSteps }}, nextStep() { this.currentStep = this.currentStep >= this.totalSteps ? this.totalSteps : this.currentStep + 1; }, previousStep() { this.currentStep = this.currentStep <= 1 ? 1 : this.currentStep - 1; } }" x-shared.show="{{ $modalname }}"
+        class="fixed top-0 left-0 flex items-center justify-center w-full h-full " x-shared.cloak>
         <div class="bg-black-2 flex flex-col w-full max-w-screen-{{ $size }} p-sm gap-sm rounded-sm">
             <div class="flex items-center justify-between">
-                <x-typography.body class="text-white" size="md">{{ $title }}</x-typography.body>
+                <x-shared.typography.body class="text-white" size="md">{{ $title }}</x-shared.typography.body>
                 <button class="group" type="button" @click="{{ $modalname }} = false; currentStep = 1"
                     class="close">
                     <span

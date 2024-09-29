@@ -34,8 +34,8 @@
         @endif
     @endif
 
-    <x-typography.label :size="$size === 'md' ? 'lg' : 'md'">
+    <x-shared.typography.label :size="$size === 'md' ? 'lg' : 'md'">
         {{ $slot }}
-    </x-typography.label>
+    </x-shared.typography.label>
 
     </{{ $tag }}>

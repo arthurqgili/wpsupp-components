@@ -8,7 +8,7 @@
     {{ $attributes->merge(['class' => 'rounded-sm bg-black-2 flex flex-col']) }}>
     @if (isset($title))
         <div class="px-{{ $size }} pt-{{ $size }}">
-            <x-typography.body class="text-gray-2" size="md">{{ $title }}</x-typography.body>
+            <x-shared.typography.body class="text-gray-2" size="md">{{ $title }}</x-shared.typography.body>
         </div>
     @endif
 
