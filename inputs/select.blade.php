@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <div x-show="open" class="absolute w-full overflow-hidden border rounded-b-sm bg-black-2 border-transparent">
+        <div x-show="open" class="absolute z-50 w-full overflow-hidden border rounded-b-sm bg-black-2 border-transparent">
             <ul class="overflow-auto max-h-60">
                 <template x-for="(option, index) in {{ json_encode($options) }}" :key="index">
                     <li @click="selected = option; open = false" x-text="option"
