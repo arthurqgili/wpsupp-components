@@ -16,24 +16,31 @@
     $verifiedSizeMap = [
         'lg' => 16, 
         'md' => 12, 
-        'sm' => 8, 
+        'sm' => null, 
     ];
 
     $sizeClass = $sizeMap[$size] ?? $sizeMap['md'];
-    $verifiedSizeClass = $verifiedSizeMap[$size] ?? $verifiedSizeMap['md'];
+    $verifiedSizeClass = $verifiedSizeMap[$size] ?? null;
+
+    $verifiedWrapperClass = $verifiedSizeClass 
+        ? "w-[$verifiedSizeClass] h-[$verifiedSizeClass]"
+        : '';
 @endphp
 
 <div class="relative">
     <img src="{{ $src }}" alt="User Avatar" class="rounded-full object-cover {{ $sizeClass }}" />
 
-    @if ($verified)
-        <x-shared.fragments.icon
-            type="outlined"
-            color="blue-1"
-            size="{{ $verifiedSizeClass }}" 
-            fill
-            icon="new_releases"
-            class="absolute bottom-0 right-0"
-        />
+    @if ($verified && $verifiedSizeClass) 
+        <div class="absolute bottom-0 right-0 {{$verifiedWrapperClass}} ">
+            <div class="h-2 w-2  bg-black-1 -translate-x-1/2 -translate-y-1/2"></div>
+            <x-shared.fragments.icon
+                type="outlined"
+                color="blue-1"
+                size="{{ $verifiedSizeClass }}" 
+                fill
+                icon="new_releases"
+                class="absolute bottom-0 right-0"
+            />
+        </div>
     @endif
 </div>
