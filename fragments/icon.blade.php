@@ -1,10 +1,10 @@
 @props([
-    'type' => 'outlined',
-    'color' => 'blue-1',
-    'size' => '16',
-    'icon' => 'new_releases',
-    'fill' => null,
-    'class' => '', 
+    'type' => 'outlined',  // Icon style ('outlined', 'rounded', 'sharp')
+    'color' => 'blue-1',   // Icon color (e.g., Tailwind color class)
+    'size' => '16',        // Icon size in pixels
+    'icon' => 'new_releases', // Material Symbol icon name
+    'fill' => null,        // Apply fill style if true
+    'class' => '',         // Additional custom classes
 ])
 
 <span 

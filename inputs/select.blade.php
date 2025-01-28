@@ -1,7 +1,7 @@
 @props(['options', 'selected' => null, 'placeholder' => 'Selecione uma opção', 'name' => 'select-name', 'variation' => 'default'])
 
 <div x-data="{ open: false, selected: '{{ $selected }}', placeholder: '{{ $placeholder }}' }" @click.away="open = false" class="relative group">
-    <!-- Layout 1: Default (with blue border) -->
+    <!-- Default -->
     @if ($variation === 'default')
         <div @click="open = !open"
             class="bg-transparent border font-raleway font-[400] text-[12px] text-black-1 group-hover:border-blue-2 dark:text-white border-black-1 dark:border-white px-sm h-lg w-full flex items-center"
@@ -23,7 +23,7 @@
             </ul>
         </div>
 
-    <!-- Layout 2: Custom (without blue border, with black-2 background) -->
+    <!-- WW Variation -->
     @elseif ($variation === 'ww')
         <div @click="open = !open"
             class="font-raleway font-[400] text-[12px] text-white dark:text-white px-sm h-lg w-full flex items-center"

@@ -1,4 +1,10 @@
-@props(['src', 'size' => 'md', 'verified' => false, 'fill' => false, 'color' => 'blue-1', 'icon' => 'new_releases'])
+@props([
+    'src',                // Image source URL
+    'size' => 'md',       // Avatar size ('lg', 'md', 'sm')
+    'verified' => false,  // Show verified badge if true
+    'fill' => false,      // Apply fill style to badge if true
+    'color' => 'blue-1',  // Badge color (Tailwind class)
+])
 
 @php
     $sizeMap = [
