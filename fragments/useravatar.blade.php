@@ -1,31 +1,33 @@
-@props(['src', 'size' => 'md', 'verified' => false])
+@props(['src', 'size' => 'md', 'verified' => false, 'fill' => false, 'color' => 'blue-1', 'icon' => 'new_releases'])
 
 @php
-    // Size mapping for the avatar
     $sizeMap = [
-        'lg' => 'w-12 h-12',   // 48px (Large size)
-        'md' => 'w-8 h-8',     // 32px (Medium size)
-        'sm' => 'w-4 h-4',     // 16px (Small size)
+        'lg' => 'w-12 h-12', 
+        'md' => 'w-8 h-8', 
+        'sm' => 'w-4 h-4', 
     ];
 
-    // Size mapping for the verified icon based on the avatar size
     $verifiedSizeMap = [
-        'lg' => '!text-[16px]',   // For 48px avatar
-        'md' => '!text-[12px]',    // For 32px avatar
-        'sm' => '!text-[8px]',    // For 16px avatar
+        'lg' => 16, 
+        'md' => 12, 
+        'sm' => 8, 
     ];
 
-    // Check if the provided size is valid and assign the corresponding class
-    $sizeClass = $sizeMap[$size] ?? $sizeMap['md'];  // Default to 'md' if the size is not valid
-    $verifiedSizeClass = $verifiedSizeMap[$size] ?? $verifiedSizeMap['md'];  // Default to 'md' if the size is not valid
+    $sizeClass = $sizeMap[$size] ?? $sizeMap['md'];
+    $verifiedSizeClass = $verifiedSizeMap[$size] ?? $verifiedSizeMap['md'];
 @endphp
 
 <div class="relative">
-    {{-- Avatar image --}}
     <img src="{{ $src }}" alt="User Avatar" class="rounded-full object-cover {{ $sizeClass }}" />
 
-    {{-- Verified icon --}}
     @if ($verified)
-        <span class="material-symbols-outlined absolute bottom-0 right-0 {{ $verifiedSizeClass }} text-blue-1">new_releases</span>
+        <x-shared.fragments.icon
+            type="outlined"
+            color="blue-1"
+            size="{{ $verifiedSizeClass }}" 
+            fill
+            icon="new_releases"
+            class="absolute bottom-0 right-0"
+        />
     @endif
 </div>
