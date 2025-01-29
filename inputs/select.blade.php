@@ -26,7 +26,7 @@
     <!-- WW Variation -->
     @elseif ($variation === 'ww')
         <div @click="open = !open"
-            class="font-raleway font-[400] text-[12px] text-white dark:text-white px-sm h-lg w-full flex items-center"
+            class="font-raleway font-[400] text-[12px] text-white dark:text-white px-sm h-lg w-full flex items-center cursor-pointer"
             :class="{ 
                 'bg-black-2 rounded-t-sm': open,  <!-- black-2 background when open -->
                 'rounded-sm bg-black-2 border-transparent': !open <!-- black-2 background when closed -->

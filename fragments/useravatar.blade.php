@@ -8,38 +8,39 @@
 
 @php
     $sizeMap = [
-        'lg' => 'w-12 h-12', 
-        'md' => 'w-8 h-8', 
-        'sm' => 'w-4 h-4', 
+        'lg' => 'w-xl h-xl', 
+        'md' => 'w-lg h-lg', 
+        'sm' => 'w-sm h-sm', 
     ];
 
     $verifiedSizeMap = [
-        'lg' => 16, 
-        'md' => 12, 
+        'lg' => '!text-[16px]', 
+        'md' => '!text-[12px]', 
+        'sm' => null, 
+    ];
+
+    $verifiedWrapperSizeMap = [
+        'lg' => 'w-[16px] h-[16px]', 
+        'md' => 'w-[12px] h-[12px]', 
         'sm' => null, 
     ];
 
     $sizeClass = $sizeMap[$size] ?? $sizeMap['md'];
     $verifiedSizeClass = $verifiedSizeMap[$size] ?? null;
-
-    $verifiedWrapperClass = $verifiedSizeClass 
-        ? "w-[$verifiedSizeClass] h-[$verifiedSizeClass]"
-        : '';
+    $verifiedWrapperClass = $verifiedWrapperSizeMap[$size] ?? null;
 @endphp
 
 <div class="relative">
     <img src="{{ $src }}" alt="User Avatar" class="rounded-full object-cover {{ $sizeClass }}" />
 
     @if ($verified && $verifiedSizeClass) 
-        <div class="absolute bottom-0 right-0 {{$verifiedWrapperClass}} ">
-            <div class="h-2 w-2  bg-black-1 -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 {{$verifiedWrapperClass}} flex items-center justify-center ">
+            <div class="h-1/2 w-1/2 bg-white"></div>
             <x-shared.fragments.icon
                 type="outlined"
-                color="blue-1"
-                size="{{ $verifiedSizeClass }}" 
                 fill
                 icon="new_releases"
-                class="absolute bottom-0 right-0"
+                class="{{ $verifiedSizeClass }} absolute bottom-0 right-0"
             />
         </div>
     @endif

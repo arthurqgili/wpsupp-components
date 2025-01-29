@@ -99,7 +99,7 @@
         @endif
 
         @if ($tagText)
-            <x-shared.fragments.usertag size="xs" type="active" class="text-blue-2" id="user-tag">
+            <x-shared.fragments.usertag size="xs" class="text-blue-2" id="user-tag">
                 {{ $tagText }}
             </x-shared.fragments.usertag>
         @endif
