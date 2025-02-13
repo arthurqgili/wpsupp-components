@@ -1,0 +1,47 @@
+@props([
+    'src',                // Image source URL
+    'size' => 'md',       // Avatar size ('lg', 'md', 'sm')
+    'verified' => false,  // Show verified badge if true
+    'fill' => false,      // Apply fill style to badge if true
+    'color' => 'blue-1',  // Badge color (Tailwind class)
+])
+
+@php
+    $sizeMap = [
+        'lg' => 'w-xl h-xl', 
+        'md' => 'w-lg h-lg', 
+        'sm' => 'w-sm h-sm', 
+    ];
+
+    $verifiedSizeMap = [
+        'lg' => '!text-[16px]', 
+        'md' => '!text-[12px]', 
+        'sm' => null, 
+    ];
+
+    $verifiedWrapperSizeMap = [
+        'lg' => 'w-[16px] h-[16px]', 
+        'md' => 'w-[12px] h-[12px]', 
+        'sm' => null, 
+    ];
+
+    $sizeClass = $sizeMap[$size] ?? $sizeMap['md'];
+    $verifiedSizeClass = $verifiedSizeMap[$size] ?? null;
+    $verifiedWrapperClass = $verifiedWrapperSizeMap[$size] ?? null;
+@endphp
+
+<div class="relative">
+    <img src="{{ $src }}" alt="User Avatar" class="rounded-full object-cover {{ $sizeClass }}" />
+
+    @if ($verified && $verifiedSizeClass) 
+        <div class="absolute bottom-0 right-0 {{$verifiedWrapperClass}} flex items-center justify-center ">
+            <div class="h-1/2 w-1/2 bg-white"></div>
+            <x-shared.fragments.icon
+                type="outlined"
+                fill
+                icon="new_releases"
+                class="{{ $verifiedSizeClass }} absolute bottom-0 right-0"
+            />
+        </div>
+    @endif
+</div>
