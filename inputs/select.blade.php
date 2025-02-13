@@ -1,6 +1,6 @@
 @props(['options', 'selected' => null, 'placeholder' => 'Selecione uma opção', 'name' => 'select-name', 'variation' => 'default', 'open' => false,])
 
-<div x-data="{ open: false, selected: '{{ $selected }}', placeholder: '{{ $placeholder }}' }" @click.away="open = false" class="relative group">
+<div x-data="{ open: false, selected: '{{ $selected }}', placeholder: '{{ $placeholder }}' }" @click.away="open = false" class="relative group select-none">
     <!-- Default -->
     @if ($variation === 'default')
         <div @click="open = !open"
