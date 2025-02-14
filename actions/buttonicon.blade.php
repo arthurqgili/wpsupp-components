@@ -6,6 +6,7 @@
     $sizeMap = [
         'md' => 'w-lg h-lg',
         'sm' => 'w-md h-md',
+        'xl' => 'w-xl h-xl', 
     ];
 
     if (array_key_exists($size, $sizeMap)) {
@@ -18,7 +19,9 @@
     @isset($onclick) onclick="{{ $onclick }}" @endisset
     @if ($disabled) disabled @endif>
     @if (!empty($icon))
-        @if ($size === 'md')
+        @if ($size === 'xl')
+            <span class="!text-[24px] !leading-[125%] material-symbols-outlined">{{ $icon }}</span> 
+        @elseif ($size === 'md')
             <span class="!text-[16px] !leading-[125%] material-symbols-outlined">{{ $icon }}</span>
         @else
             <span class="!text-[12px] !leading-[125%] material-symbols-outlined">{{ $icon }}</span>
