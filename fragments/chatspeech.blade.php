@@ -10,7 +10,7 @@
     @if($senderType === 'client')
     <div class="flex items-start">
         <!-- Display client's avatar -->
-        <x-shared.fragments.useravatar src="{{ $avatarSrc }}" size="sm" />
+        <x-shared.fragments.useravatar src="{{ $avatarSrc }}" size="xs" />
     </div>
     @endif
 
@@ -68,7 +68,7 @@
     @if($senderType === 'user')
     <div class="flex items-start">
         <!-- Display user's avatar -->
-        <x-shared.fragments.useravatar src="{{ $avatarSrc }}" size="sm" />
+        <x-shared.fragments.useravatar src="{{ $avatarSrc }}" size="xs" />
     </div>
     @endif
 </div>

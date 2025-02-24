@@ -17,20 +17,40 @@
 
     <!-- First line: Avatar and audio player (waveform) -->
     <div class="flex h-md {{ $isClient ? 'flex-row' : 'flex-row-reverse' }}">
-        <x-shared.fragments.useravatar src="{{ $avatarSrc }}" size="md" />
+        <x-shared.fragments.useravatar src="{{ $avatarSrc }}" size="sm" />
 
         <div class="flex flex-col flex-1">
             <div class="flex items-center {{ $isClient ? 'justify-start pl-xxs' : 'justify-end pr-xxs' }}">
-                <button id="playButton_{{ $uniqueId }}" class="play-button">
+
+                <!-- Play button -->
+                <button 
+                    id="playButton_{{ $uniqueId }}" 
+                    class="play-button"
+                    @click="togglePlayback"
+                >
                     <x-shared.fragments.icon 
                         icon="play_arrow" 
                         type="outlined" 
                         fill="true" 
-                        class="text-white text-sm" 
+                        class="text-white text-sm"  
                     />
                 </button>
 
-                <div id="waveform_{{ $uniqueId }}" class="w-full"></div>
+                <!-- Pause button -->
+                <button 
+                    id="pauseButton_{{ $uniqueId }}" 
+                    class="pause-button hidden"
+                    @click="togglePlayback"
+                >
+                    <x-shared.fragments.icon 
+                        icon="pause" 
+                        type="outlined" 
+                        fill="true" 
+                        class="text-white text-sm"  
+                    />
+                </button>
+
+                <div id="waveform_{{ $uniqueId }}" class="w-full cursor-pointer"></div>
             </div>
         </div>
     </div>
@@ -61,6 +81,7 @@
         waveColor: '#FFFFFF',
         progressColor: '#7BAEF9',
         height: 24,
+        barGap: 2,
         barWidth: 2,
         cursorWidth: 0,
         cursorColor: '#0000FF',
@@ -70,7 +91,10 @@
     wavesurfer.load(audioSrc);
 
     const playButton = document.getElementById(`playButton_${uniqueId}`);
+    const pauseButton = document.getElementById(`pauseButton_${uniqueId}`);
     const currentTimeElement = document.getElementById(`currentTime_${uniqueId}`);
+
+    let isPlaying = false; // Track the playback state
 
     function formatTime(seconds) {
         const minutes = Math.floor(seconds / 60);
@@ -88,8 +112,21 @@
         currentTimeElement.textContent = formatTime(duration);
     });
 
-    playButton.addEventListener('click', function() {
-        wavesurfer.play();
-    });
+    // Handle Play/Pause functionality
+    function togglePlayback() {
+        if (isPlaying) {
+            wavesurfer.pause();
+            playButton.classList.remove('hidden');
+            pauseButton.classList.add('hidden');
+        } else {
+            wavesurfer.play();
+            playButton.classList.add('hidden');
+            pauseButton.classList.remove('hidden');
+        }
+        isPlaying = !isPlaying; // Toggle the playing state
+    }
+
+    playButton.addEventListener('click', togglePlayback);
+    pauseButton.addEventListener('click', togglePlayback);
 });
 </script>
