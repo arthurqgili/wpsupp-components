@@ -1,7 +1,7 @@
 @props(['label', 'value' => '', 'id', 'type', 'name', 'hidden' => false, 'autocomplete' => 'off', 'variation' => 'default', 'placeholder' => ''])
 
 <!-- Variação Message -->
-@if ($variation === 'message')
+@if ($variation === 'chatMessage')
     <div class="flex flex-col gap-xs items-start group relative {{ $hidden ? 'hidden' : '' }}">
         <input :type="showPassword ? 'text' : '{{ $type }}'" id="{{ $id }}"
             class="font-raleway font-[400] text-[12px] placeholder-gray-3 bg-black-3 text-white border-0 rounded-sm h-xl px-sm w-full focus:border-0 focus:outline-0 focus:ring-0"
