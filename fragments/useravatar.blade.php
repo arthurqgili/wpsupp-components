@@ -37,7 +37,7 @@
     <img src="{{ $src }}" alt="User Avatar" class="rounded-full object-cover {{ $sizeClass }}" />
 
     @if ($verified && $verifiedSizeClass) 
-        <div class="absolute bottom-0 right-0 {{$verifiedWrapperClass}} flex items-center justify-center ">
+        <div class="absolute bottom-0 right-0 {{$verifiedWrapperClass}} flex items-center justify-center text-blue-1 ">
             <div class="h-1/2 w-1/2 bg-white"></div>
             <x-shared.fragments.icon
                 type="outlined"

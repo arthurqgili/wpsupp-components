@@ -5,7 +5,7 @@
 ])
 
 <span 
-    class="{{ $attributes['class'] ?? '' }} material-symbols-{{ $type }} text-blue-1 !text-[16px]"
+    class="{{ $attributes['class'] ?? '' }} material-symbols-{{ $type }}"
     style="{{ $fill ? 'font-variation-settings: \'FILL\' 1;' : '' }}"
 >
     {{ $icon }}

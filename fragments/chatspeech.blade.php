@@ -1,8 +1,8 @@
 @props([
-    'avatarSrc', // URL do avatar
-    'name', // Nome do usuário
-    'messages' => [], // Array de mensagens
-    'senderType', // Tipo do remetente ('user' ou 'client')
+    'avatarSrc', // Avatar URL
+    'name', // User's name
+    'messages' => [], // Array of messages
+    'senderType', // Type of the sender ('user' or 'client')
 ])
 
 @if($messages)
@@ -34,7 +34,7 @@
                     @endif
                     <div class="flex flex-col gap-xxxs {{ $senderType === 'user' ? 'items-end' : '' }} max-w-full">
                         @foreach($groupedTextMessages as $textMessage)
-                            <div class="max-w-[240px] w-fit bg-black-1 flex flex-col p-xs rounded-xxs">
+                            <div class="max-w-[240px] w-fit bg-black-1 flex flex-col p-xs rounded-sm">
                                 <x-shared.typography.body size="sm" class="text-blue-1">{{ $name }}</x-shared.typography.body>
                                 <div class="flex w-full justify-between items-end gap-xs">
                                     <div class="flex-1 min-w-0 break-words">
@@ -69,11 +69,11 @@
                     @endif
                     <div class="flex flex-col gap-xxxs {{ $senderType === 'user' ? 'items-end' : '' }} max-w-full">
                         @if($message['media_type'] === 'video')
-                            <!-- Vídeo como thumbnail com overlay de play -->
-                            <div class="w-full max-w-[240px] min-h-xxxl relative cursor-pointer" data-video-url="{{ $message['media_url'] }}">
-                                <img class="w-full h-full object-cover rounded-xxs aspect-[4/3]" src="{{ $message['thumbnail_url'] }}" alt="Video thumbnail">
-                                <div class="absolute inset-0 flex items-center justify-center bg-black/50 rounded-xxs">
-                                    <span class="material-symbols-outlined text-white text-4xl">play_arrow</span>
+                            <!-- Video as thumbnail with play overlay -->
+                            <div class=" w-[240px] h-xxxl  relative cursor-pointer" data-video-url="{{ $message['media_url'] }}">
+                                <img class="w-full h-full object-cover rounded-sm aspect-[4/3]" src="{{ $message['thumbnail_url'] }}" alt="Video thumbnail">
+                                <div class="absolute inset-0 flex items-center justify-center bg-black-1/50 rounded-xxs">
+                                    <x-shared.fragments.icon type="outlined" fill icon="play_arrow" class="!text-white !text-[32px]" />
                                 </div>
                                 <div class="absolute bottom-0 right-0 p-xs">
                                     <x-shared.typography.body size="sm" class="text-gray-3">{{ $formattedTime }}</x-shared.typography.body>
@@ -81,7 +81,7 @@
                             </div>
 
                         @elseif($message['media_type'] === 'audio')
-                            <!-- Mensagem de áudio -->
+                            <!-- Audio message -->
                             <x-shared.fragments.chataudio 
                                 :avatarSrc="$avatarSrc"
                                 :name="$name"
@@ -90,9 +90,9 @@
                                 :senderType="$senderType" 
                             />
                         @else
-                            <!-- Mensagem com imagem -->
-                            <div class="w-full max-w-[240px] min-h-xxxl relative">
-                                <img class="w-full h-full object-cover rounded-xxs aspect-[4/3]" src="{{ $message['media_url'] }}" alt="Message image">
+                            <!-- Message with image -->
+                            <div class=" w-[240px] h-xxxl relative">
+                                <img class="w-full h-full object-cover rounded-sm aspect-[4/3]" src="{{ $message['media_url'] }}" alt="Message image">
                                 <div class="absolute bottom-0 right-0 p-xs">
                                     <x-shared.typography.body size="sm" class="text-gray-3">{{ $formattedTime }}</x-shared.typography.body>
                                 </div>
