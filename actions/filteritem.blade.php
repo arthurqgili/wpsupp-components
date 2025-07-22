@@ -9,7 +9,7 @@
 ])
 
 
-<div class="group relative cursor-pointer {{ $isActive ? 'bg-blue-1 text-white pointer-events-none' : 'bg-black-2 hover:bg-black-3' }} 
+<div {{ $attributes }} class="group relative cursor-pointer {{ $isActive ? 'bg-blue-1 text-white pointer-events-none' : 'bg-black-2 hover:bg-black-3' }} 
            {{ $icon ? '' : 'flex-grow' }} flex justify-center items-center px-xs py-xxs gap-xxs 
            transition-colors duration-200 {{ $class }}">
     <div class="absolute inset-0 bg-blue-hover opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
