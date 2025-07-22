@@ -49,7 +49,7 @@
     }
 @endphp
 
-<div class="py-md px-lg {{ $active ? 'bg-black-3 cursor-default' : 'hover:bg-black-2 cursor-pointer' }} flex items-center justify-between gap-xs border-b border-black-3 select-none">
+<div class="py-md px-lg {{ $active ? 'bg-black-2 cursor-default' : 'hover:bg-black-2 cursor-pointer' }} flex items-center justify-between gap-xs border-b border-black-3 select-none">
     <x-shared.fragments.useravatar src="{{ $avatarSrc }}" size="lg" :verified="$isVerified" />
 
     <div class="flex gap-xs flex-col flex-grow">
