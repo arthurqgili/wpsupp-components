@@ -33,8 +33,10 @@
 @endphp
 
 <button type="{{ $type }}"
-    class="{{ $attributes['class'] ?? '' }} shrink-0 {{ $variationClass }} {{ $sizeClass }} disabled:pointer-events-none select-none flex justify-center items-center"
-    @isset($onclick) onclick="{{ $onclick }}" @endisset
+    {{ $attributes->merge([
+        'type' => $type,
+        'class' => "{$variationClass} {$sizeClass} shrink-0 disabled:pointer-events-none select-none flex justify-center items-center"
+    ]) }}
     @if ($disabled) disabled @endif>
     @if (!empty($icon))
         @if ($size === 'xl')

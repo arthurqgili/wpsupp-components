@@ -3,9 +3,14 @@
 <!-- Variação Message -->
 @if ($variation === 'chatMessage')
     <div class="flex flex-col gap-xs items-start group relative {{ $hidden ? 'hidden' : '' }}">
-        <input :type="showPassword ? 'text' : '{{ $type }}'" id="{{ $id }}"
-            class="font-raleway font-[400] text-[12px] placeholder-gray-3 bg-black-3 text-white border-0 rounded-sm h-xl px-sm w-full focus:border-0 focus:outline-0 focus:ring-0"
-            name="{{ $name }}" x-model="messageValue" placeholder="{{ $placeholder }}" autocomplete="{{ $autocomplete }}">
+        <input 
+            id="{{ $id }}"
+            type="{{ $type }}"
+            name="{{ $name }}"
+            placeholder="{{ $placeholder }}"
+            autocomplete="{{ $autocomplete }}"
+            {{ $attributes->merge(['class' => 'font-raleway font-[400] text-[12px] placeholder-gray-3 bg-black-3 text-white border-0 rounded-sm h-xl px-sm w-full focus:border-0 focus:outline-0 focus:ring-0']) }}
+        >
     </div>
 @else
     <!-- Variação Default -->
