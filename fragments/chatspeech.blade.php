@@ -1,112 +1,60 @@
 @props([
-    'avatarSrc', // Avatar URL
-    'name', // User's name
-    'messages' => [], // Array of messages
-    'senderType', // Type of the sender ('user' or 'client')
+    'avatarSrc',
+    'name',
+    'message',
+    'senderType',
 ])
 
-@if($messages)
-<div class="flex flex-col gap-xs {{ $senderType === 'user' ? 'justify-end' : '' }}">
-    @php
-        $groupedTextMessages = [];
-    @endphp
+{{--
+  Message Bubble Router Component
 
-    @foreach($messages as $index => $message)
-        @php
-            $formattedTime = \Carbon\Carbon::parse($message['sentAt'])->format('H:i');
-            $isTextMessage = !isset($message['has_media']) || !$message['has_media'];
-            $nextMessageIsText = isset($messages[$index + 1]) && (!isset($messages[$index + 1]['has_media']) || !$messages[$index + 1]['has_media']);
-        @endphp
+  This component acts as a router. It inspects the incoming `$message` object
+  to determine if it contains media.
 
-        @if($isTextMessage)
-            @php
-                $groupedTextMessages[] = $message;
-            @endphp
-        @endif
+  - If media is present, it uses a `@switch` to delegate rendering to the
+    appropriate component (`chatimage`, `chataudio`, `chatvideo`).
+  - If no media is present, it renders a standard text message bubble.
+--}}
+@php
+    // Check if the media collection is not empty.
+    $hasMedia = $message->media->isNotEmpty();
+    // If it has media, get the first item from the collection.
+    $media = $hasMedia ? $message->media->first() : null;
+@endphp
 
-        @if(!$isTextMessage || !$nextMessageIsText || $index === count($messages) - 1)
-            @if(count($groupedTextMessages))
-                <div class="flex gap-xxxs {{ $senderType === 'user' ? 'justify-end' : '' }}">
-                    @if($senderType === 'client')
-                        <div class="flex items-start">
-                            <x-shared.fragments.useravatar src="{{ $avatarSrc }}" size="xs" />
-                        </div>
-                    @endif
-                    <div class="flex flex-col gap-xxxs {{ $senderType === 'user' ? 'items-end' : '' }} max-w-full">
-                        @foreach($groupedTextMessages as $textMessage)
-                            <div class="max-w-[240px] w-fit bg-black-1 flex flex-col p-xs rounded-sm">
-                                <x-shared.typography.body size="sm" class="text-blue-1">{{ $name }}</x-shared.typography.body>
-                                <div class="flex w-full justify-between items-end gap-xs">
-                                    <div class="flex-1 min-w-0 break-words">
-                                        <x-shared.typography.body size="md" class="text-white">
-                                            {{ $textMessage['content'] }}
-                                        </x-shared.typography.body>
-                                    </div>
-                                    <div class="whitespace-nowrap">
-                                        <x-shared.typography.body size="sm" class="text-gray-3">{{ $formattedTime }}</x-shared.typography.body>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
+<div class="flex gap-xs w-full {{ $senderType === 'user' ? 'flex-row-reverse' : 'justify-start' }}">
+    <div class="flex items-start">
+        <x-shared.fragments.useravatar :src="$avatarSrc" size="sm" />
+    </div>
+
+    <div class="flex {{ $senderType === 'user' ? 'justify-end' : '' }} max-w-[320px] w-full">
+        @if ($hasMedia)
+            @switch($media->type)
+                @case(\App\Enums\MediaType::VIDEO)
+                    <x-shared.fragments.chatvideo :media="$media" />
+                    @break
+                @case(\App\Enums\MediaType::AUDIO)
+                    <x-shared.fragments.chataudio :media="$media" />
+                    @break
+                @default
+                    <x-shared.fragments.chatimage :media="$media" />
+            @endswitch
+        @else
+            <div class="max-w-[320px] w-fit bg-black-1 flex flex-col p-xs rounded-sm">
+                <x-shared.typography.body size="sm" class="text-blue-1">{{ $name }}</x-shared.typography.body>
+                <div class="flex w-full justify-between items-end gap-xs">
+                    <div class="flex-1 min-w-0 break-words">
+                        <x-shared.typography.body size="md" class="text-white">
+                            {{ $message->content }}
+                        </x-shared.typography.body>
                     </div>
-                    @if($senderType === 'user')
-                        <div class="flex items-start">
-                            <x-shared.fragments.useravatar src="{{ $avatarSrc }}" size="xs" />
-                        </div>
-                    @endif
-                </div>
-                @php
-                    $groupedTextMessages = [];
-                @endphp
-            @endif
-
-            @if(!$isTextMessage)
-                <div class="flex gap-xxxs {{ $senderType === 'user' ? 'justify-end' : '' }}">
-                    @if($senderType === 'client')
-                        <div class="flex items-start">
-                            <x-shared.fragments.useravatar src="{{ $avatarSrc }}" size="xs" />
-                        </div>
-                    @endif
-                    <div class="flex flex-col gap-xxxs {{ $senderType === 'user' ? 'items-end' : '' }} max-w-full">
-                        @if($message['media_type'] === 'video')
-                            <!-- Video as thumbnail with play overlay -->
-                            <div class=" w-[240px] h-xxxl  relative cursor-pointer" data-video-url="{{ $message['media_url'] }}">
-                                <img class="w-full h-full object-cover rounded-sm aspect-[4/3]" src="{{ $message['thumbnail_url'] }}" alt="Video thumbnail">
-                                <div class="absolute inset-0 flex items-center justify-center bg-black-1/50 rounded-xxs">
-                                    <x-shared.fragments.icon type="outlined" fill icon="play_arrow" class="!text-white !text-[32px]" />
-                                </div>
-                                <div class="absolute bottom-0 right-0 p-xs">
-                                    <x-shared.typography.body size="sm" class="text-gray-3">{{ $formattedTime }}</x-shared.typography.body>
-                                </div>
-                            </div>
-
-                        @elseif($message['media_type'] === 'audio')
-                            <!-- Audio message -->
-                            <x-shared.fragments.chataudio 
-                                :avatarSrc="$avatarSrc"
-                                :name="$name"
-                                :audioSrc="$message['media_url']"
-                                :sentAt="$message['sentAt']"
-                                :senderType="$senderType" 
-                            />
-                        @else
-                            <!-- Message with image -->
-                            <div class=" w-[240px] h-xxxl relative">
-                                <img class="w-full h-full object-cover rounded-sm aspect-[4/3]" src="{{ $message['media_url'] }}" alt="Message image">
-                                <div class="absolute bottom-0 right-0 p-xs">
-                                    <x-shared.typography.body size="sm" class="text-gray-3">{{ $formattedTime }}</x-shared.typography.body>
-                                </div>
-                            </div>
-                        @endif
+                    <div class="whitespace-nowrap mb-[-4px] mr-[-4px]">
+                        <x-shared.typography.body size="sm" class="text-gray-3">
+                            {{ $message->created_at->format('H:i') }}
+                        </x-shared.typography.body>
                     </div>
-                    @if($senderType === 'user')
-                        <div class="flex items-start">
-                            <x-shared.fragments.useravatar src="{{ $avatarSrc }}" size="xs" />
-                        </div>
-                    @endif
                 </div>
-            @endif
+            </div>
         @endif
-    @endforeach
+    </div>
 </div>
-@endif
