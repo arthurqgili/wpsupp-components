@@ -23,9 +23,14 @@
         </label>
         
         <!-- Input Padrão -->
-        <input :type="showPassword ? 'text' : '{{ $type }}'" id="{{ $id }}"
-            class="font-raleway font-[400] text-[12px] placeholder-gray-3 rounded-sm bg-transparent border text-black-1 group-hover:border-blue-2 group-focus-within:border-blue-1 dark:group-focus-within:border-blue-1 dark:text-white focus-visible:outline-0 border-black-1 dark:border-white px-sm h-lg w-full"
-            name="{{ $name }}" value="{{ $value }}" placeholder="{{ $placeholder }}" autocomplete="{{ $autocomplete }}">
+        <input 
+            :type="showPassword ? 'text' : '{{ $type }}'" 
+            id="{{ $id }}"
+            name="{{ $name }}" 
+            value="{{ $value }}" 
+            placeholder="{{ $placeholder }}" 
+            autocomplete="{{ $autocomplete }}"
+            {{ $attributes->merge(['class' => 'font-raleway font-[400] text-[12px] placeholder-gray-3 rounded-sm bg-transparent border text-black-1 group-hover:border-blue-2 group-focus-within:border-blue-1 dark:group-focus-within:border-blue-1 dark:text-white focus-visible:outline-0 border-black-1 dark:border-white px-sm h-lg w-full']) }}>
 
         <!-- Condicional para o campo de senha -->
         @if ($type === 'password')
