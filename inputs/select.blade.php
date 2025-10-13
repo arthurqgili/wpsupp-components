@@ -8,14 +8,17 @@
     'background' => 'bg-black-2',  // Prop de fundo com valor padrão
 ])
 
-<div x-data="{
+<div
+    x-data="{
         open: false,
-        selectedKey: '{{ $selected }}',
+        selectedKey: @if($attributes->wire('model')->value()) @entangle($attributes->wire('model')) @else '{{ $selected }}' @endif,
         selectedLabel: '',
         placeholder: '{{ $placeholder }}',
         options: {{ json_encode($options) }},
         init() {
-            // Set initial selected label based on selectedKey
+            this.updateSelectedLabel();
+        },
+        updateSelectedLabel() {
             this.selectedLabel = this.options[this.selectedKey] || this.placeholder;
         },
         selectOption(key, label) {
@@ -25,6 +28,7 @@
             this.$dispatch('select-option-changed', { key: key, label: label });
         }
     }"
+    x-effect="updateSelectedLabel()"
     @click.away="open = false"
     class="relative group select-none">
 
