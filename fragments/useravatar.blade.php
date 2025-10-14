@@ -33,8 +33,8 @@
     $verifiedWrapperClass = $verifiedWrapperSizeMap[$size] ?? null;
 @endphp
 
-<div class="relative">
-    <img src="{{ $src }}" alt="User Avatar" class="rounded-full object-cover {{ $sizeClass }}" />
+<div class="relative shrink-0">
+    <img src="{{ $src }}" alt="User Avatar" class="rounded-full object-cover {{ $sizeClass }} shrink-0" />
 
     @if ($verified && $verifiedSizeClass) 
         <div class="absolute bottom-0 right-0 {{$verifiedWrapperClass}} flex items-center justify-center text-blue-1 ">
