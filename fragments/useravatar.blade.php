@@ -36,7 +36,8 @@
 <div class="relative shrink-0">
     <img src="{{ $src }}" alt="User Avatar" class="rounded-full object-cover {{ $sizeClass }} shrink-0" />
 
-    @if ($verified && $verifiedSizeClass) 
+    {{-- Temporarily disabled - Future feature: verified client badge --}}
+    {{-- @if ($verified && $verifiedSizeClass)
         <div class="absolute bottom-0 right-0 {{$verifiedWrapperClass}} flex items-center justify-center text-blue-1 ">
             <div class="h-1/2 w-1/2 bg-white"></div>
             <x-shared.fragments.icon
@@ -46,5 +47,5 @@
                 class="{{ $verifiedSizeClass }} absolute bottom-0 right-0"
             />
         </div>
-    @endif
+    @endif --}}
 </div>
