@@ -1,4 +1,4 @@
-@props(['onclick', 'click', 'icon', 'size', 'type' => 'button', 'disabled' => false, 'href' => null])
+@props(['onclick', 'click', 'icon', 'size', 'type' => 'button', 'disabled' => false, 'href' => null, 'active' => false])
 
 @php
     $sizeClass = '';
@@ -13,14 +13,23 @@
     }
 
     $tag = $href ? 'a' : 'button';
+
+    $baseClasses = 'whitespace-nowrap select-none flex items-center ' . $sizeClass;
+
+    if ($active) {
+        $activeClasses = 'text-blue-1 dark:text-blue-1 pointer-events-none';
+    } else {
+        $activeClasses = 'text-blue-1 dark:text-white hover:text-blue-2 dark:hover:text-blue-2 focus-visible:text-blue-4 focus-visible:border-b focus-visible:border-blue-4 focus-visible:outline-0 dark:focus-visible:text-blue-4 dark:focus-visible:border-blue-4';
+    }
+
+    $disabledClasses = 'disabled:pointer-events-none disabled:text-gray-3';
+
+    $finalClasses = $baseClasses . ' ' . $activeClasses . ' ' . $disabledClasses;
 @endphp
 
 <{{ $tag }} {{ $href ? "href=$href" : '' }}
     {{ $attributes->merge([
-        'class' =>
-            'whitespace-nowrap text-blue-1 hover:text-blue-2 focus-visible:text-blue-4 focus-visible:border-b focus-visible:border-blue-4 focus-visible:outline-0 hover: dark:text-white dark:hover:text-blue-2 dark:focus-visible:text-blue-4 dark:focus-visible:border-blue-4 disabled:pointer-events-none ' .
-            $sizeClass .
-            ' disabled:text-gray-3 select-none flex items-center',
+        'class' => $finalClasses,
     ]) }}
     @isset($onclick) onclick="{{ $onclick }}" @endisset
     @isset($click) @click="{{ $click }}" @endisset
