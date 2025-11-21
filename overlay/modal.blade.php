@@ -7,25 +7,42 @@
     'totalSteps' => 1,
 ])
 
+@php
+    $maxWidthClass = match($size) {
+        'sm' => 'max-w-screen-sm',
+        'md' => 'max-w-screen-md',
+        'lg' => 'max-w-screen-lg',
+        'xl' => 'max-w-screen-xl',
+        default => 'max-w-screen-xs',
+    };
+    $paddingClass = match($padding) {
+        'xxs' => 'p-xxs',
+        'sm' => 'p-sm',
+        'md' => 'p-md',
+        'lg' => 'p-lg',
+        default => 'p-xs',
+    };
+@endphp
+
 <template x-shared.if="{{ $modalname }}">
     <div x-data="{ currentStep: {{ $currentStep }}, totalSteps: {{ $totalSteps }}, nextStep() { this.currentStep = this.currentStep >= this.totalSteps ? this.totalSteps : this.currentStep + 1; }, previousStep() { this.currentStep = this.currentStep <= 1 ? 1 : this.currentStep - 1; } }" x-shared.show="{{ $modalname }}"
         class="fixed top-0 left-0 flex items-center justify-center w-full h-full " x-shared.cloak>
-        <div class="bg-black-2 flex flex-col w-full max-w-screen-{{ $size }} p-sm gap-sm rounded-sm">
+        <div class="bg-muted flex flex-col w-full {{ $maxWidthClass }} p-sm gap-sm rounded-sm">
             <div class="flex items-center justify-between">
-                <x-shared.typography.body class="text-white" size="md">{{ $title }}</x-shared.typography.body>
+                <x-shared.typography.body class="text-foreground" size="md">{{ $title }}</x-shared.typography.body>
                 <button class="group" type="button" @click="{{ $modalname }} = false; currentStep = 1"
                     class="close">
                     <span
-                        class="!text-[16px] !leading-[125%] material-symbols-outlined text-white group-hover:text-gray-3">close</span>
+                        class="!text-[16px] !leading-[125%] material-symbols-outlined text-foreground group-hover:text-muted-foreground">close</span>
                 </button>
             </div>
             <div>
                 @if (isset($sidebar))
-                    <div class="p-{{ $padding }}">
+                    <div class="{{ $paddingClass }}">
                         {{ $sidebar }}
                     </div>
                 @endif
-                <div class="p-{{ $padding }}">
+                <div class="{{ $paddingClass }}">
                     {{ $slot }}
                 </div>
             </div>
