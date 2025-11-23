@@ -17,12 +17,12 @@
     $baseClasses = 'whitespace-nowrap select-none flex items-center ' . $sizeClass;
 
     if ($active) {
-        $activeClasses = 'text-blue-1 dark:text-blue-1 pointer-events-none';
+        $activeClasses = 'text-primary dark:text-primary pointer-events-none';
     } else {
-        $activeClasses = 'text-blue-1 dark:text-white hover:text-blue-2 dark:hover:text-blue-2 focus-visible:text-blue-4 focus-visible:border-b focus-visible:border-blue-4 focus-visible:outline-0 dark:focus-visible:text-blue-4 dark:focus-visible:border-blue-4';
+        $activeClasses = 'text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-foreground focus-visible:text-primary focus-visible:border-b focus-visible:border-primary focus-visible:outline-0 dark:focus-visible:text-primary dark:focus-visible:border-primary';
     }
 
-    $disabledClasses = 'disabled:pointer-events-none disabled:text-gray-3';
+    $disabledClasses = 'disabled:pointer-events-none disabled:text-muted-foreground';
 
     $finalClasses = $baseClasses . ' ' . $activeClasses . ' ' . $disabledClasses;
 @endphp

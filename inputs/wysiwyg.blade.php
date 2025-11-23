@@ -63,8 +63,8 @@
     }
 </style>
 <div x-data="editorSetup()" x-shared.init="initEditor"
-    class="overflow-hidden border border-white rounded-sm editor focus-within:border-blue-1">
-    <div id="editor-toolbar" class="!border-0 p-xxs bg-black-3">
+    class="overflow-hidden border border-foreground rounded-sm editor focus-within:border-primary">
+    <div id="editor-toolbar" class="!border-0 p-xxs bg-raised">
         @foreach ($options as $option)
             @if ($option === 'bold')
                 <button class="ql-bold"></button>
@@ -79,7 +79,7 @@
         @endforeach
     </div>
     <div id="editor-container"
-        class="!border-0 p-sm !font-raleway font-[400] text-[12px] text-white overflow-y-auto max-h-xxxl"></div>
+        class="!border-0 p-sm !font-raleway font-[400] text-[12px] text-foreground overflow-y-auto max-h-xxxl"></div>
 </div>
 @if ($option === 'attach')
     @push('scripts')

@@ -15,19 +15,19 @@
     }
 
     if ($variation === 'outlined') {
-        $variationClass = 'bg-transparent border border-blue-1 text-blue-1 hover:border-blue-2 hover:text-blue-2 focus-visible:border-blue-2 focus-visible:text-blue-2 rounded-sm';
+        $variationClass = 'bg-transparent border border-primary text-primary hover:border-primary-hover hover:text-primary-hover focus-visible:border-primary-hover focus-visible:text-primary-hover rounded-sm';
         if ($disabled) {
-            $variationClass = 'bg-transparent border border-gray-3 text-gray-3 rounded-sm';
+            $variationClass = 'bg-transparent border border-text-secondary text-muted-foreground rounded-sm';
         }
     } elseif ($variation === 'secondary') {
-        $variationClass = 'bg-black-3 text-white hover:bg-blue-2 focus-visible:bg-blue-2 focus-visible:bg-blue-4 focus-visible:outline-0 rounded-sm';
+        $variationClass = 'bg-raised text-foreground hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:bg-primary-active focus-visible:outline-0 rounded-sm';
         if ($disabled) {
-            $variationClass = 'bg-black-3 text-gray-3 rounded-sm'; 
+            $variationClass = 'bg-raised text-muted-foreground rounded-sm';
         }
     } else {
-        $variationClass = 'bg-blue-1 text-white hover:bg-blue-2 focus-visible:bg-blue-2 focus-visible:bg-blue-4 focus-visible:outline-0 rounded-sm';
+        $variationClass = 'bg-primary text-foreground hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:bg-primary-active focus-visible:outline-0 rounded-sm';
         if ($disabled) {
-            $variationClass = 'bg-black-3 text-gray-3 rounded-sm';  
+            $variationClass = 'bg-raised text-muted-foreground rounded-sm';
         }
     }
 @endphp

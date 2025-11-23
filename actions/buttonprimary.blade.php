@@ -14,7 +14,7 @@
 @endphp
 
 <button type="{{ $type }}"
-    class="{{ $attributes['class'] ?? '' }} whitespace-nowrap bg-blue-1 hover:bg-blue-2 focus-visible:bg-blue-2 focus-visible:bg-blue-4 focus-visible:outline-0 text-white rounded-sm {{ $sizeClass }} disabled:pointer-events-none disabled:bg-gray-3 select-none flex justify-center items-center"
+    class="{{ $attributes['class'] ?? '' }} whitespace-nowrap bg-primary hover:bg-primary-hover focus-visible:bg-primary-hover focus-visible:bg-blue-4 focus-visible:outline-0 text-foreground rounded-sm {{ $sizeClass }} disabled:pointer-events-none disabled:bg-gray-3 select-none flex justify-center items-center"
     @isset($onclick) onclick="{{ $onclick }}" @endisset
     @isset($click) @click="{{ $click }}" @endisset
     @if ($disabled) disabled @endif
